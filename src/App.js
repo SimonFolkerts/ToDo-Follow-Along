@@ -25,7 +25,8 @@ const myTodos = [
 // for each object in the original array, the map helper function shown below will create a new piece of HTML that contains the specific data of the original object as props.
 // We can then insert the array of new component HTML into the JSX below
 const myToDoComponents = myTodos.map(function (todo) {
-  return <ToDo title={todo.title} status={todo.completed} />;
+  // We should also add a key attribute to this ToDo so that React can keep track of which ToDo is which when it renders them
+  return <ToDo key={todo.id} title={todo.title} status={todo.completed} />;
 });
 
 function App() {
