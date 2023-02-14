@@ -1,22 +1,41 @@
 import "./App.css";
 import ToDo from "./components/ToDo.js";
 
-function App() {
-  // a new string, stored in a variable. We can pass this down to the ToDo child component by using props
-  const myString = "hello";
+// We now have an array of todo objects that represent the tasks to be done
+// We want to generate from this array of todo objects, a new array of ToDo components that have this data injected into them as props
+const myTodos = [
+  {
+    id: 0,
+    title: "Finish Project",
+    completed: false,
+  },
+  {
+    id: 1,
+    title: "Make Lunch",
+    completed: false,
+  },
+  {
+    id: 2,
+    title: "Watch Show",
+    completed: true,
+  },
+];
 
+// myTodos.map() can be used to generate a new array that contains the JSX HTML output necessary to render the ToDo components.
+// for each object in the original array, the map helper function shown below will create a new piece of HTML that contains the specific data of the original object as props.
+// We can then insert the array of new component HTML into the JSX below
+const myToDoComponents = myTodos.map(function (todo) {
+  return <ToDo title={todo.title} status={todo.completed} />;
+});
+
+function App() {
   return (
     <div className="App">
       <h1>My To-Do List</h1>
       <section>
         <h2>To-Do List</h2>
-        <div className="todos__container">
-          {/* here we have added a pair of props to this instance of ToDo, the first one is called title and passes down a variable's value, the second is called status and is simply passing a string. These will be bundled together into a single object which can be accessed in the component */}
-          <ToDo title={myString} status="completed" />
-
-          {/* here, another instance of ToDo is being passed the same props but with different values. This means that when this instance of ToDo accesses title and status, it will recieve these different values  */}
-          <ToDo title="Go to Gym" status="incomplete" />
-        </div>
+        {/* Here we can just insert the new array of HTML and react will render it */}
+        <div className="todos__container">{myToDoComponents}</div>
       </section>
     </div>
   );
