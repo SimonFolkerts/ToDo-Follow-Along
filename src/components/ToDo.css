@@ -7,3 +7,7 @@
 .todo * {
   margin: 0;
 }
+
+.todo.completed {
+  background-color: rgb(202, 255, 171);
+}

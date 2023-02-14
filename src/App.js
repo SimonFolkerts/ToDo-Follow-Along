@@ -33,6 +33,7 @@ function App() {
   return (
     <div className="App">
       <h1>My To-Do List</h1>
+
       <section>
         <h2>To-Do List</h2>
         {/* Here we can just insert the new array of HTML and react will render it */}
