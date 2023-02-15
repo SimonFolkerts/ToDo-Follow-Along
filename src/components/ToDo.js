@@ -1,32 +1,38 @@
+import { useState } from "react";
 import "./ToDo.css";
-// by adding the 'props' parameter to the component function, it can now access incoming data from the parent
+
 function ToDo(props) {
-  // we can use an if statement that checks if props.status is true or false
-  // if it is true, this if statement puts a bit of JSX markup into the `completedMarkup` variable - if false, it leaves it undefined. We can then put this variable into the return section of this component where its contents will be rendered.
-  let completedMarkup;
+  // this line of code uses the useState hook to request a pointer to special persistent variable that can remember data and trigger updates in the DOM when it is changed. We also get a setter function that we can use to update the variable since we can't directly access it (we have a pointer to it, not the variable itself)
+  // useState returns these two items (the pointer and the setter) in an array. The first item is always the pointer and the second item is always the setter
+  // the syntax used here is called array destructuring and is a shortcut to put the items in an array into separate variables, so here we get the pointer into a variable called completionStatus and the setter function into setCompletionStatus
+  const [completionStatus, setCompletionStatus] = useState(props.status); // we use the prop as the starting value, and after that it is tracked independently
+  // we can then read completion status, or update it with the setter. Updating it causes the component to refresh and re-render, saving the new value rather than discarding it and reinitializing
 
-  if (props.status) {
-    completedMarkup = (
-      <div>
-        <h2>Congratulations!</h2>
-        <img
-          src="https://picsum.photos/id/237/200/300"
-          alt="black dog success image"
-        />
-      </div>
-    );
-  }
+  // this handler function will use the setter to update the value of the completionStatus state variable. Updating the variables triggers a refresh of the component, causing it to be redrawn. The variable will remember the value assigned to it during this redraw
+  const clickHandler = (event) => {
+    setCompletionStatus(!completionStatus); // this flips the value to the opposite of what it was, toggling back and forth between true and false
+  };
 
+  // throughout the JSX output of this component, instead of referencing the array from App.js, we can reference this special container that stores the state of the ToDo independantly. When it is updated from true to false, or vice versa, the entire component re-renders and displays the new value. This allows the component to keep track of its own state independently
   return (
-    // if props.status is true, the className will contain "todo completed". If false it will contain just "todo". This is because the ternary operator will evaluate to either " completed" or "", which is then added to "todo"
-    <div className={"todo" + (props.status ? " completed" : "")}>
+    // we can add a click listener to the ToDo that triggers a handler function
+    <div
+      onClick={clickHandler}
+      className={
+        "todo" +
+        (completionStatus /* changed to use the state variable */
+          ? " completed"
+          : "")
+      }
+    >
       <h3 className="todo__title">{props.title}</h3>
 
-      {/* the p tag will contain "Status:" plus either Completed or Incomplete depending on if props.status is true or false */}
-      <p>Status: {props.status ? "Completed" : "Incomplete"}</p>
-
-      {/* this is the variable that contains either some JSX markup, or is undefined. React will read this variable and render whatever is inside it here */}
-      {completedMarkup}
+      <p>
+        Status:{" "}
+        {completionStatus /* changed to use the state variable */
+          ? "completed"
+          : "incomplete"}
+      </p>
     </div>
   );
 }
