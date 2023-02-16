@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./ToDo.css";
+import "./ToDo.scss";
 
 function ToDo(props) {
   // this line of code uses the useState hook to request a pointer to special persistent variable that can remember data and trigger updates in the DOM when it is changed. We also get a setter function that we can use to update the variable since we can't directly access it (we have a pointer to it, not the variable itself)

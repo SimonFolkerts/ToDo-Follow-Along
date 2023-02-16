@@ -1,0 +1,17 @@
+// .new-todo-form {
+//   &__label {}
+//   // &__input {}
+//   // &__button {}
+// }
+
+
+.new-todo-form {}
+
+.new-todo-form__label {
+  font-size: 12px;
+  padding-left: 2em;
+}
+
+.new-todo-form__label--red {
+  color: red;
+}
