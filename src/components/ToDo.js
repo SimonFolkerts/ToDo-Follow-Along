@@ -14,6 +14,11 @@ function ToDo(props) {
   };
 
   // throughout the JSX output of this component, instead of referencing the array from App.js, we can reference this special container that stores the state of the ToDo independantly. When it is updated from true to false, or vice versa, the entire component re-renders and displays the new value. This allows the component to keep track of its own state independently
+
+  const handleDelete = (event) => {
+    props.onDeleteTodo(props.id);
+  };
+
   return (
     // we can add a click listener to the ToDo that triggers a handler function
     <div
@@ -33,6 +38,7 @@ function ToDo(props) {
           ? "completed"
           : "incomplete"}
       </p>
+      <button onClick={handleDelete}>delete</button>
     </div>
   );
 }
